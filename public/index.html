@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>SIMON API</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #070a10;
+    color: white;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 230px;
+    height: 100vh;
+    padding: 25px 15px;
+    background: #101522;
+    border-right: 1px solid #252d3d;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.logo span {
+    color: #8b5cf6;
+}
+
+.menu {
+    display: block;
+    color: #aeb6c5;
+    text-decoration: none;
+    padding: 12px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+}
+
+.menu:hover,
+.menu.active {
+    color: white;
+    background: #7c3aed;
+}
+
+.main {
+    margin-left: 230px;
+    padding: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 30px;
+}
+
+.online {
+    padding: 9px 15px;
+    border-radius: 20px;
+    background: #123522;
+    color: #4ade80;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+    gap: 15px;
+}
+
+.card {
+    background: #101522;
+    border: 1px solid #252d3d;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.label {
+    color: #8f99aa;
+    font-size: 13px;
+}
+
+.number {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 9px;
+}
+
+.section {
+    margin-top: 30px;
+}
+
+.section h2 {
+    margin-bottom: 15px;
+}
+
+.key-row {
+    display: flex;
+    gap: 10px;
+}
+
+.key {
+    flex: 1;
+    padding: 14px;
+    background: #070a10;
+    border: 1px solid #252d3d;
+    border-radius: 8px;
+    color: #a78bfa;
+    word-break: break-all;
+}
+
+button {
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 18px;
+    background: #7c3aed;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #6d28d9;
+}
+
+.endpoint-list {
+    display: grid;
+    grid-template-columns:
+        repeat(2, 1fr);
+    gap: 10px;
+}
+
+.endpoint {
+    padding: 13px;
+    background: #070a10;
+    border: 1px solid #252d3d;
+    border-radius: 8px;
+    font-family: monospace;
+    color: #c4b5fd;
+}
+
+.info {
+    margin-top: 12px;
+    color: #8f99aa;
+}
+
+@media(max-width: 850px) {
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .stats,
+    .endpoint-list {
+        grid-template-columns: 1fr;
+    }
+
+    .header,
+    .key-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="logo">
+        🖤 SIMON <span>API</span>
+    </div>
+
+    <a class="menu active">
+        📊 Dashboard
+    </a>
+
+    <a class="menu">
+        🔑 API Keys
+    </a>
+
+    <a class="menu">
+        🤖 AI
+    </a>
+
+    <a class="menu">
+        🎵 Music
+    </a>
+
+    <a class="menu">
+        🖼️ Images
+    </a>
+
+    <a class="menu">
+        🎬 Video
+    </a>
+
+    <a class="menu">
+        🎧 Audio
+    </a>
+
+    <a class="menu">
+        📁 Files
+    </a>
+
+    <a class="menu">
+        📈 Analytics
+    </a>
+
+    <a class="menu">
+        📚 Documentation
+    </a>
+
+</aside>
+
+
+<main class="main">
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                SIMON API
+            </h1>
+
+            <p
+                style="
+                color:#8f99aa;
+                margin-top:7px;
+                "
+            >
+                100 API endpoints
+            </p>
+
+        </div>
+
+        <div class="online">
+            🟢 ONLINE
+        </div>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="card">
+
+            <div class="label">
+                API STATUS
+            </div>
+
+            <div class="number">
+                🟢
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                REQUESTS
+            </div>
+
+            <div
+                class="number"
+                id="requests"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                API KEYS
+            </div>
+
+            <div
+                class="number"
+                id="keys"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                ENDPOINTS
+            </div>
+
+            <div class="number">
+                100
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>
+            🔑 SIMON API Key
+        </h2>
+
+        <div class="card">
+
+            <div class="key-row">
+
+                <div
+                    class="key"
+                    id="apiKey"
+                >
+                    No API key created
+                </div>
+
+                <button
+                    onclick="createKey()"
+                >
+                    Create Key
+                </button>
+
+            </div>
+
+            <p
+                id="message"
+                class="info"
+            ></p>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>
+            🌐 API Endpoints
+        </h2>
+
+        <div class="card">
+
+            <p class="info">
+                These are the 100 implemented
+                SIMON API endpoints.
+            </p>
+
+            <div
+                class="endpoint-list"
+                id="endpoints"
+                style="margin-top:15px;"
+            ></div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+async function dashboard() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/dashboard"
+            );
+
+        const data =
+            await response.json();
+
+        document.getElementById(
+            "requests"
+        ).textContent =
+            data.totalRequests;
+
+        document.getElementById(
+            "keys"
+        ).textContent =
+            data.totalKeys;
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+
+async function createKey() {
+
+    const response =
+        await fetch(
+            "/api/keys",
+            {
+                method: "POST"
+            }
+        );
+
+    const data =
+        await response.json();
+
+    if (!data.success) {
+
+        alert(data.error);
+        return;
+
+    }
+
+    document.getElementById(
+        "apiKey"
+    ).textContent =
+        data.api_key;
+
+    document.getElementById(
+        "message"
+    ).textContent =
+        "Save this key securely. The full key is shown only now.";
+
+    dashboard();
+
+}
+
+
+async function loadEndpoints() {
+
+    const response =
+        await fetch(
+            "/api/docs"
+        );
+
+    const data =
+        await response.json();
+
+    const container =
+        document.getElementById(
+            "endpoints"
+        );
+
+    data.endpoints.forEach(
+        endpoint => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.className =
+                "endpoint";
+
+            div.textContent =
+                endpoint;
+
+            container.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+dashboard();
+loadEndpoints();
+
+setInterval(
+    dashboard,
+    5000
+);
+
+</script>
+
+</body>
+
+  </html>
