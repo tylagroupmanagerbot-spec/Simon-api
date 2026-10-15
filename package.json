@@ -1,0 +1,12 @@
+{
+  "name": "simon-api",
+  "version": "2.0.0",
+  "description": "SIMON API - 100 real API endpoints",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
